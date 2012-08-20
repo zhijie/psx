@@ -21,4 +21,42 @@
  *
  */
 
+Effects.Deform = {};
 
+Effects.Deform.mirror = function(src,dst,type)
+{
+    var left2right = function(src,dst) {
+        var widthStep = src.width*4;
+        for(var h =0; h < len; h++) {
+            var offset = h * src.width*4;
+            for(var w =0; w < src.width/2; w++){
+                for(var ch =0; ch < 4; ch++) {
+                    
+                }
+            }
+        }
+    }
+    var right2left = function(src,dst) {
+        
+    }
+    var top2bottom = function(src,dst) {
+        
+    }
+    var bottom2top = function(src,dst) {
+        
+    }
+    switch(type) {
+        case "left2right":
+            left2right(src,dst);
+            break;
+        case "right2left":
+            right2left(src,dst);
+            break;
+        case "top2bottom":
+            top2bottom(src,dst);
+            break;
+        case "bottom2top":
+            bottom2top(src,dst);
+            break;
+    }
+}
