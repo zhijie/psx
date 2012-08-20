@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8" />
+
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+        Remove this if you use the .htaccess -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>Library Test</title>
+        <meta name="description" content="" />
+        <meta name="author" content="onezeros" />
+
+        <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+        <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        
+        <script type="text/javascript" src="../effects.js" ></script>
+        <script>
+        
+startList = function() 
+{
+if (document.all&&document.getElementById) 
+{
+navRoot = document.getElementById("nav");
+for (i=0; i<navRoot.childNodes.length; i++) 
+{
+node = navRoot.childNodes[ i ];
+if (node.nodeName=="LI") 
+{
+node.onmouseover=function() 
+{this.className+=" over";}
+node.onmouseout=function() 
+{this.className=this.className.replace(" over", "");}
+}
+}
+}
+}
+window.onload=startList;
+</script>
+<style>
+body {
+font: normal 11px verdana;
+}
+
+ul {
+margin: 0;
+padding: 0;
+list-style: none;
+width: 150px; /* Width of Menu Items */
+border-bottom: 1px solid #ccc;
+}
+
+ul li {
+position: relative;
+}
+
+li ul {
+position: absolute;
+left: 149px; /* Set 1px less than menu width */
+top: 0;
+display: none;
+}
+
+/* Styles for Menu Items */
+ul li {
+display: block;
+text-decoration: none;
+color: #777;
+background: #fff; /* IE6 Bug */
+padding: 5px;
+border: 1px solid #ccc;
+border-bottom: 0;
+}
+
+/* Fix IE. Hide from IE Mac \*/
+* html ul li { float: left; height: 1%; }
+* html ul li { height: 1%; }
+/* End */
+
+ul li :hover { color: #E2144A; background: #f9f9f9; } /* Hover Styles */
+
+li ul li { padding: 2px 5px; } /* Sub Menu Styles */
+
+li:hover ul, li.over ul { display: block; } /* The magic */
+</style>
+
+    </head>
+
+    <body>
+        <div>
+            <header>
+                <h1>Test</h1>
+            </header>
+            
+            <ul id="nav">
+                <li>
+                    Color
+                    <ul>
+                        <li onclick="grayscale()">grayscale</li>
+                        <li onclick="invert()">invert</li>
+                    </ul>
+                </li>
+                <li>
+                    Instagram
+                    <ul>
+                        <li onclick="">sophia</li>
+                        <li onclick="">1973</li>
+                    </ul>
+                </li>
+                <li>
+                    deform
+                    <ul>
+                        <li onclick="">fisheye</li>
+                        <li onclick="">swirl</li>
+                    </ul>
+                </li>
+            </ul>
+
+
+<img id="scream" src="http://ww4.sinaimg.cn/mw600/a84f073ajw1dvsrhqht24j.jpg" alt="The Scream" width="500" height="500" />
+<canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script type="text/javascript">
+invert=function(){
+  var c=document.getElementById("myCanvas");
+  var ctx=c.getContext("2d");
+  var img=document.getElementById("scream");
+  //ctx.drawImage(img,0,0);
+  var imgData=ctx.getImageData(0,0,c.width,c.height);
+  
+  Effect.invertcolor(imgData,imgData);
+/*  
+  for (var i=0;i<imgData.width*imgData.height*4;i+=4)
+    {
+    imgData.data[i]=255-imgData.data[i];
+    imgData.data[i+1]=255-imgData.data[i+1];
+    imgData.data[i+2]=255-imgData.data[i+2];
+    imgData.data[i+3]=255;
+    }
+    */
+  ctx.putImageData(imgData,0,0);
+};
+</script>
+
+            <footer>
+                <p>
+                    &copy; Copyright  by onezeros
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
