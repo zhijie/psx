@@ -28,15 +28,10 @@ Effects = {};
 
 // blackwhite
 Effects.blackwhite = function(src, dst) {
-    
-} 
+	PS.Image.Adjustment.desaturate(src,dst);
+};
+
 // invert colors 
 Effects.invertColor = function(src, dst){
-  for (var i=0;i<src.width*src.height*4;i+=4)
-    {
-    dst.data[i]=255-src.data[i];
-    dst.data[i+1]=255-src.data[i+1];
-    dst.data[i+2]=255-src.data[i+2];
-    dst.data[i+3]=255;
-    }
-}
+	PS.Image.Adjustment.invertColor(src,dst);
+};

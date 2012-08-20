@@ -28,41 +28,7 @@ PS = {};
 
 
 /*
-// minimum filter
-FilterMinimum(src,dst,const int filterRadius)
-{
-    assert(src->nChannels==1);
-    int filterWidth=(filterRadius<<1)+1;
 
-    ext=cvCreateImage(cvSize(src->width+(filterRadius<<1),src->height+(filterRadius<<1)),8,1);
-    cvSet(ext,cvScalar(255,0,0,0));//inefficient
-    CvRect rc=cvRect(filterRadius,filterRadius,src->width,src->height);
-    cvSetImageROI(ext,rc);
-    cvCopy(src,ext);
-    cvResetImageROI(ext);
-
-    int arrSize=filterWidth*filterWidth;
-    unsigned char* arr=new unsigned char[arrSize];
-
-    for (int h=0;h<src->height;h++){
-        unsigned char* pDst=(unsigned char*)dst->imageData+h*dst->widthStep;
-        unsigned char* pExt=(unsigned char*)ext->imageData+h*ext->widthStep;
-        for (int w=0;w<src->width;w++){
-            //copy filter region to array ,find minimum
-            unsigned char* p=pExt;
-            unsigned char *parr=arr;
-            for (int f=0;f<filterWidth;f++){
-                memcpy(parr,pExt,filterWidth);
-                p+=ext->widthStep;
-                parr+=filterWidth;
-            }
-            *pDst++=*std::min_element(arr,arr+arrSize);
-            pExt++;
-        }
-    }
-    delete[] arr;
-    cvReleaseImage(&ext);
-}
 
 // "level" in Photoshop
 Level(src, dst, int posLeft, int posRight)

@@ -24,3 +24,34 @@
 /**
  * implements operations in Photoshop cs6 menu:Filter->Other
  */
+
+PS.Filter.Other = {};
+
+// minimum filter
+PS.Filter.Other.minimum = function(src,_dst,filterRadius)
+{
+	var dst = _dst;
+	if(src == dst) {
+		dst = PS.Util.cloneImageData(src);
+	}
+	
+    var filterWidth=(filterRadius<<1)+1;
+/* TODO:
+    for (var h=0;h<src.height - filterWidth; h++){
+        for (var w=0;w<src.width - filterWidth; w++){
+            //copy filter region to array ,find minimum
+            var block =[];
+            for (int f=0;f<filterWidth;f++){
+                memcpy(parr,pExt,filterWidth);
+                p+=ext->widthStep;
+                parr+=filterWidth;
+            }
+            *pDst++=*std::min_element(arr,arr+arrSize);
+            pExt++;
+        }
+    }
+  */ 
+    if(dst != _dst){
+    	_dst = PS.Util.cloneImageData(dst);
+    }
+};

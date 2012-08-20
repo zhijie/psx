@@ -18,6 +18,12 @@
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         
+        <script type="text/javascript" src="../include.js" ></script>
+        <script type="text/javascript" src="../ps.js" ></script>
+        <script type="text/javascript" src="../ps.util.js" ></script>
+        <script type="text/javascript" src="../ps.layer.js" ></script>
+        <script type="text/javascript" src="../ps.image.adjustments.js" ></script>
+        <script type="text/javascript" src="../ps.image.mode.js" ></script>
         <script type="text/javascript" src="../effects.js" ></script>
         <script>
         
@@ -133,7 +139,7 @@ invert=function(){
   //ctx.drawImage(img,0,0);
   var imgData=ctx.getImageData(0,0,c.width,c.height);
   
-  Effect.invertcolor(imgData,imgData);
+  Effects.invertColor(imgData,imgData);
 /*  
   for (var i=0;i<imgData.width*imgData.height*4;i+=4)
     {

@@ -45,7 +45,7 @@ PS.Image.Adjustment.desaturate = function(src,dst)
         dst[i + 1] = minV;
         dst[i + 2] = minV;
     }
-}
+};
 
 //invert color
 PS.Image.Adjustment.invertColor = function(src,dst)
@@ -56,4 +56,6 @@ PS.Image.Adjustment.invertColor = function(src,dst)
             dst[i + ch] = 255 - src[i - ch];
         };
     }
-}
+};
+
+

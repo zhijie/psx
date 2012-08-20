@@ -22,3 +22,34 @@
  */
 
 
+// utility functions
+PS.Util = {};
+
+PS.Util.clamp0255 = function(value)
+{
+	 return value > 255 ? 255 : ( value < 0 ? 0 : value);
+};
+PS.Util.clamp = function(val, from, to)
+{
+	return ((val) < (from) ? (from) : ((val) > (to) ? (to): (val)));
+};
+
+PS.Util.mix = function(x, y, alpha)
+{
+	return (x * (1 - alpha) + y * (alpha));
+};
+PS.Util.sqr = function (x)
+{
+	return x * x;
+};
+
+PS.Util.cloneImageData = function(imageData) 
+{
+	  var canvas, context;
+	  canvas = document.createElement('canvas');
+	  canvas.width = imageData.width;
+	  canvas.height = imageData.height;
+	  context = canvas.getContext('2d');
+	  context.putImageData(imageData, 0, 0);
+	  return context.getImageData(0, 0, imageData.width, imageData.height);
+};
