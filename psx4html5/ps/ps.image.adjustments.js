@@ -30,15 +30,13 @@ PS.Image.Adjustment = {};
 // desaturate
 PS.Image.Adjustment.desaturate = function(src,dst)
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
         var r = src.data[i];
         var g = src.data[i + 1];
         var b = src.data[i + 2];
-        var minV=b>g?g:b;
-        minV=minV>r?r:minV;
-        var maxV=b<g?g:b;
-        maxV=minV<r?r:maxV;
+        var minV= Math.min(b,g,r);
+        var maxV= Math.max(b,g,r);
 
         minV=(minV+maxV)/2;
         dst.data[i] = minV;
@@ -50,7 +48,7 @@ PS.Image.Adjustment.desaturate = function(src,dst)
 //invert color
 PS.Image.Adjustment.invertColor = function(src,dst)
 {
-	var len = src.width*src.height*4;
+	var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
         for (var ch=0; ch <3; ch++) {
             dst.data[i + ch] = 255 - src.data[i + ch];

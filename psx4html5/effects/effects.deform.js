@@ -30,42 +30,46 @@ Effects.Deform.mirror = function(src,dst,type)
 	}
     var left2right = function(src,dst) {
         var widthStep = src.width*4;
-        for(var h =0; h < src.length; h++) {
+        for(var h =0; h < src.height; h++) {
             var offset = h * src.width*4;
 			for(var i =0; i <widthStep/2; i += 4){
 				for(var ch =0; ch < 4; ch++) {
-					dst.data[offset + widthStep - i - 4] = dst.data[offset + i + ch];
+					dst.data[offset + widthStep - i - 4 + ch] = dst.data[offset + i + ch];
                 }
 			}
         }
-    }
+    };
     var right2left = function(src,dst) {
         var widthStep = src.width*4;
         for(var h =0; h < src.height; h++) {
             var offset = h * src.width*4;
 			for(var i =0; i <widthStep/2; i += 4){
 				for(var ch =0; ch < 4; ch++) {
-					dst.data[offset + i + ch] = dst.data[offset + widthStep - i - 4];
+					dst.data[offset + i + ch] = dst.data[offset + widthStep - i - 4 + ch];
                 }
 			}
         }
-    }
-    var top2bottom = function(src,dst) {
+    };
+    var top2bottom = function(src,dst) {        
         var widthStep = src.width*4;
 		var psrc =0;
 		var pdst = dst.data.length - widthStep;
         for(var h =0; h < src.height/2; h++) {
-            PS.Util.copyArray(src,dst,psrc,pdst,widthStep);
+            PS.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
+            psrc += widthStep;
+            pdst -= widthStep;
         }
-    }
+    };
     var bottom2top = function(src,dst) {
         var widthStep = src.width*4;
 		var pdst =0;
 		var psrc = dst.data.length - widthStep;
         for(var h =0; h < src.height/2; h++) {
-            PS.Util.copyArray(src,dst,psrc,pdst,widthStep);
+            PS.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
+            psrc -= widthStep;
+            pdst += widthStep;
         }
-    }
+    };
     switch(type) {
         case "left2right":
             left2right(src,dst);

@@ -118,8 +118,9 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     Color
                     <ul>
-                        <li onclick="grayscale()">grayscale</li>
-                        <li onclick="invert()">invert</li>
+                        <li onclick="effects('blackwhite')">blackwhite</li>
+                        <li onclick="effects('invert')">invert</li>
+                        <li onclick="effects('infrared')">infrared</li>
                     </ul>
                 </li>
                 <li>
@@ -132,26 +133,53 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     deform
                     <ul>
-                        <li onclick="">fisheye</li>
-                        <li onclick="">swirl</li>
+                        <li onclick="effects('mirrorright2left')">mirrorright2left</li>
+                        <li onclick="effects('mirrorleft2right')">mirrorleft2right</li>
+                        <li onclick="effects('mirrortop2bottom')">mirrortop2bottom</li>
+                        <li onclick="effects('mirrorbottom2top')">mirrorbottom2top</li>
                     </ul>
                 </li>
             </ul>
 
 
-<img id="scream" src="Tulips.jpg" alt="The Scream" width="500" height="500" />
-<canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;">
+<img id="scream" src="the_scream.jpg" alt="The Scream" width="220" height="277" />
+<canvas id="myCanvas" width="220" height="277" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script type="text/javascript">
-invert=function(){
+effects=function(type){
   var c=document.getElementById("myCanvas");
   var ctx=c.getContext("2d");
   var img=document.getElementById("scream");
   ctx.drawImage(img,0,0);
   var imgData=ctx.getImageData(0,0,c.width,c.height);
+   
+  var effectmap = new Object();
+  //color
+  effectmap['invert'] = Effects.Color.invertColor;
+  effectmap['blackwhite'] = Effects.Color.blackwhite;
+  effectmap['infrared'] = Effects.Color.infrared;
+  //deform
+  var bottom2topFunc = function(src,dst){
+    Effects.Deform.mirror(src,dst,'bottom2top');
+  };
+  var top2bottomFunc = function(src,dst){
+    Effects.Deform.mirror(src,dst,'top2bottom');
+  };
+  var left2rightFunc = function(src,dst){
+    Effects.Deform.mirror(src,dst,'left2right');
+  };
+  var right2leftFunc = function(src,dst){
+    Effects.Deform.mirror(src,dst,'right2left');
+  };
+  effectmap['mirrorbottom2top'] = bottom2topFunc;
+  effectmap['mirrortop2bottom'] = top2bottomFunc;
+  effectmap['mirrorleft2right'] = left2rightFunc;
+  effectmap['mirrorright2left'] = right2leftFunc;
   
-  Effects.Color.invertColor(imgData,imgData);
+  
+  var effectFunc = effectmap[type];   
+  effectFunc(imgData,imgData);
 
   ctx.putImageData(imgData,0,0);
 };
