@@ -30,13 +30,13 @@
 <script language="Javascript" src="../ps/ps.filter.other.js"></script>
 <script language="Javascript" src="../ps/ps.layer.js"></script>
 
-<script language="Javascript" src="../effects/effects.js"></script>
-<script language="Javascript" src="../effects/effects.color.js"></script>
-<script language="Javascript" src="../effects/effects.colorshift.js"></script>
-<script language="Javascript" src="../effects/effects.deform.js"></script>
-<script language="Javascript" src="../effects/effects.funny.js"></script>
-<script language="Javascript" src="../effects/effects.instagram.js"></script>
-<script language="Javascript" src="../effects/effects.sketch.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.color.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.colorshift.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.deform.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.funny.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.instagram.js"></script>
+<script language="Javascript" src="../PsxEffects/PsxEffects.sketch.js"></script>
         <script>
         
 startList = function() 
@@ -118,25 +118,51 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     Color
                     <ul>
-                        <li onclick="effects('blackwhite')">blackwhite</li>
-                        <li onclick="effects('invert')">invert</li>
-                        <li onclick="effects('infrared')">infrared</li>
+                        <li onclick="PsxEffects('blackwhite')">blackwhite</li>
+                        <li onclick="PsxEffects('invert')">invert</li>
+                        <li onclick="PsxEffects('infrared')">infrared</li>
                     </ul>
                 </li>
                 <li>
                     Instagram
                     <ul>
-                        <li onclick="">sophia</li>
-                        <li onclick="">1973</li>
+                        <li onclick="">i1</li>
+                        <li onclick="">i2</li>
                     </ul>
                 </li>
                 <li>
-                    deform
+                    Sketch
                     <ul>
-                        <li onclick="effects('mirrorright2left')">mirrorright2left</li>
-                        <li onclick="effects('mirrorleft2right')">mirrorleft2right</li>
-                        <li onclick="effects('mirrortop2bottom')">mirrortop2bottom</li>
-                        <li onclick="effects('mirrorbottom2top')">mirrorbottom2top</li>
+                        <li onclick="">s1</li>
+                        <li onclick="">s2</li>
+                    </ul>
+                </li>
+                <li>
+                    Deform
+                    <ul>
+                        <li onclick="PsxEffects('fisheye')">fisheye</li>
+                        <li onclick="PsxEffects('shrink')">shrink</li>
+                        <li onclick="PsxEffects('swirl')">swirl</li>
+                        <li onclick="PsxEffects('wave')">wave</li>                        
+                        <li onclick="PsxEffects('mosaic')">mosaic</li>
+                        <li onclick="PsxEffects('mirrorright2left')">mirrorright2left</li>
+                        <li onclick="PsxEffects('mirrorleft2right')">mirrorleft2right</li>
+                        <li onclick="PsxEffects('mirrortop2bottom')">mirrortop2bottom</li>
+                        <li onclick="PsxEffects('mirrorbottom2top')">mirrorbottom2top</li>
+                    </ul>
+                </li>
+                <li>
+                    ColorShift
+                    <ul>
+                        <li onclick="">c1</li>
+                        <li onclick="">c2</li>
+                    </ul>
+                </li>
+                <li>
+                    Funny
+                    <ul>
+                        <li onclick="">f1</li>
+                        <li onclick="">f2</li>
                     </ul>
                 </li>
             </ul>
@@ -147,7 +173,7 @@ li:hover ul, li.over ul { display: block; } /* The magic */
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script type="text/javascript">
-effects=function(type){
+PsxEffects=function(type){
   var c=document.getElementById("myCanvas");
   var ctx=c.getContext("2d");
   var img=document.getElementById("scream");
@@ -176,6 +202,11 @@ effects=function(type){
   effectmap['mirrortop2bottom'] = top2bottomFunc;
   effectmap['mirrorleft2right'] = left2rightFunc;
   effectmap['mirrorright2left'] = right2leftFunc;
+  effectmap['fisheye'] = Effects.Deform.fisheye;
+  effectmap['shrink'] = Effects.Deform.shrink;
+  effectmap['swirl'] = Effects.Deform.swirl;
+  effectmap['wave'] = Effects.Deform.wave;
+  effectmap['mosaic'] = Effects.Deform.mosaic;
   
   
   var effectFunc = effectmap[type];   

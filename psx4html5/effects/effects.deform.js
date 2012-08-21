@@ -84,4 +84,23 @@ Effects.Deform.mirror = function(src,dst,type)
             bottom2top(src,dst);
             break;
     }
-}
+};
+
+Effects.Deform.fisheye = function(src,dst)
+{
+};
+Effects.Deform.shrink = function(src,dst)
+{
+};
+
+Effects.Deform.swirl = function(src,dst)
+{
+};
+
+Effects.Deform.wave = function(src,dst)
+{
+};
+
+Effects.Deform.mosaic = function(src,dst)
+{
+};
