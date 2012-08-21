@@ -30,28 +30,7 @@ PS = {};
 /*
 
 
-// "level" in Photoshop
-Level(src, dst, int posLeft, int posRight)
-{
-    if(posLeft >= posRight){
-        LOGE("posLeft( = %d) should be smaller than posRight( = %d)\n",posLeft,posRight);
-        return;
-    }
-    float scale = 255.f / (posRight - posLeft);
-    unsigned char* psrc = (unsigned char*)src->imageData;
-    unsigned char* pdst = (unsigned char*)dst->imageData;
-    for(int i = 0; i < src->imageSize; i++){
-        if(*psrc <= posLeft ){
-            *pdst = 0;
-        }else if(*psrc >= posRight ){
-            *pdst = 255;
-        }else {
-            *pdst = (*psrc - posLeft) * scale;
-        }
-        *pdst++ ;
-        *psrc++ ;
-    }
-}
+
 
 // RGB adjustment
 // deta is the value to change,deta[0] deta[1] deta[2] correspond to R G B
@@ -109,21 +88,7 @@ Softglow(src, dst,float radius,float brightness, float sharpness)
     cvReleaseImage(&gray);
 }
 
-// solarize in photoshop,i.e. over exposuse
-Solarize(src, _dst)
-{
-    dst = _dst;
-    if(dst == src){
-        dst = cvCreateImage(cvGetSize(src),8,src->nChannels);
-    }
-    psInvertColor(src, dst);
-    psBlendingDarken(src,dst, dst);
 
-    if(dst != _dst){
-        cvCopy(dst,_dst);
-        cvReleaseImage(&dst);
-    }
-}
 
 // adjust hue, lightness, saturation. input:
 //   increment of hsl:incHue[-180, 180], incLightness[-100, 100], incSaturation[-100, 100]

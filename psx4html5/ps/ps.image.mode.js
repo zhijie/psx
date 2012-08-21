@@ -31,9 +31,9 @@ PS.Image.Mode.rgb2gray = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-    	var gray = (src[i]>>2) + (src[i +1] >> 1) + (src[i+2] >> 2);	
+    	var gray = (src.data[i]>>2) + (src.data[i + 1] >> 1) + (src.data[i + 2] >> 2);	
         for (var ch=0; ch <3; ch++) {
-            dst[i + ch] = gray;
+            dst.data[i + ch] = gray;
         };
     }
 };
@@ -42,9 +42,9 @@ PS.Image.Mode.rgb2yuv = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-		dst[i] = PS.Util.clamp0255((src[i] * 0.257 ) + (src[i + 1] * 0.504) + (src[i + 2] * 0.098) + 16); // y
-		dst[i + 1] = PS.Util.clamp0255((src[i] * 0.439) - (src[i + 1] * 0.368) - (src[i + 2] * 0.071) + 128); // u
-		dst[i + 2] = PS.Util.clamp0255(- (src[i] * 0.148) - (src[i + 1] * 0.291) + (src[i + 2] * 0.439) + 128); // v
+		dst.data[i] = PS.Util.clamp0255((src.data[i] * 0.257 ) + (src.data[i + 1] * 0.504) + (src.data[i + 2] * 0.098) + 16); // y
+		dst.data[i + 1] = PS.Util.clamp0255((src.data[i] * 0.439) - (src.data[i + 1] * 0.368) - (src.data[i + 2] * 0.071) + 128); // u
+		dst.data[i + 2] = PS.Util.clamp0255(- (src.data[i] * 0.148) - (src.data[i + 1] * 0.291) + (src.data[i + 2] * 0.439) + 128); // v
     }
 };
 
@@ -53,10 +53,10 @@ PS.Image.Mode.yuv2rgb = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-		var y1 = 1.164 * (src[i] - 16);
-		dst[i] = PS.Util.clamp0255(y1 + 2.018 * (src[i + 1] - 128)); // y
-		dst[i + 1] = PS.Util.clamp0255(y1 - 0.813 * (src[i + 2] - 128) - 0.391 *(src[i + 1] - 128)); // u
-		dst[i + 2] = PS.Util.clamp0255(y1 + 1.596 * (src[i + 2] - 128)); // v
+		var y1 = 1.164 * (src.data[i] - 16);
+		dst.data[i] = PS.Util.clamp0255(y1 + 2.018 * (src.data[i + 1] - 128)); // y
+		dst.data[i + 1] = PS.Util.clamp0255(y1 - 0.813 * (src.data[i + 2] - 128) - 0.391 *(src.data[i + 1] - 128)); // u
+		dst.data[i + 2] = PS.Util.clamp0255(y1 + 1.596 * (src.data[i + 2] - 128)); // v
     }
 };
 
@@ -65,9 +65,9 @@ PS.Image.Mode.rgb2hsv = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-		var R = src[i]/255.0;
-		var G = src[i + 1] / 255.0;
-		var B = src[i + 2] / 255.0;
+		var R = src.data[i]/255.0;
+		var G = src.data[i + 1] / 255.0;
+		var B = src.data[i + 2] / 255.0;
 		var value = Math.max(R, Math.max(G, B));
 		var saturation = value ==0 ? 0 :( 1.0 - Math.min(R,Math.min(G,B))/value);
 		var hue = 0;
@@ -87,9 +87,9 @@ PS.Image.Mode.rgb2hsv = function(src,dst)
 		{
 			hue += 360;
 		}
-		dst[i] = hue/2; // h
-		dst[i + 1] = saturation * 255;//s
-		dst[i + 2] = value * 255;//
+		dst.data[i] = hue/2; // h
+		dst.data[i + 1] = saturation * 255;//s
+		dst.data[i + 2] = value * 255;//
     }
 };
 
@@ -97,9 +97,9 @@ PS.Image.Mode.hsv2rgb = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-		var hue = src[i] * 2;
-		var saturation = src[i + 1];
-		var value = src[i + 2];
+		var hue = src.data[i] * 2;
+		var saturation = src.data[i + 1];
+		var value = src.data[i + 2];
         
 		var tmp = hue / 60.0;
 		var hi = floor(tmp)%6;
@@ -115,9 +115,9 @@ PS.Image.Mode.hsv2rgb = function(src,dst)
 			[t,p,value],
 			[value,p,q]
 		];
-		dst[i] = rgb[hi][i];
-		dst[i + 1] = rgb[hi][i + 1];
-		dst[i + 2] = rgb[hi][i + 2];
+		dst.data[i] = rgb[hi][i];
+		dst.data[i + 1] = rgb[hi][i + 1];
+		dst.data[i + 2] = rgb[hi][i + 2];
     }
 };
 
@@ -127,9 +127,9 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
     for(var i =0; i < len; i+= 4) {
 		var h = 0, s = 0, l = 0;
 		// normalizes red-green-blue values
-		var r = src[i] / 255.0;
-		var g = src[i + 1] / 255.0;
-		var b = src[i + 2] / 255.0;
+		var r = src.data[i] / 255.0;
+		var g = src.data[i + 1] / 255.0;
+		var b = src.data[i + 2] / 255.0;
         
 		var maxVal = Math.max(r, Math.max(g, b));
 		var minVal = Math.min(r, Math.min(g, b));
@@ -158,9 +158,9 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
 		}else if (l >= 0.5){
 			s = (maxVal - minVal) / (2 - maxVal - minVal);
 		}
-		dst[i] = h / 2;
-		dst[i + 1] = s * 255;
-		dst[i + 2] = l * 255;
+		dst.data[i] = h / 2;
+		dst.data[i + 1] = s * 255;
+		dst.data[i + 2] = l * 255;
     }
 };
 
@@ -168,13 +168,13 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
-		var h = src[i] * 2;
-		var s = src[i + 1] / 255.0;
-		var l = src[i + 2] / 255.0;
+		var h = src.data[i] * 2;
+		var s = src.data[i + 1] / 255.0;
+		var l = src.data[i + 2] / 255.0;
         
         
 		var r, g, b;
-		if (src[i + 1] == 0){
+		if (src.data[i + 1] == 0){
 			r = g = b = l * 255.0;
 		}else{
 			var q = (l < 0.5) ? (l * (1.0 + s)) : (l + s - (l * s));
@@ -204,9 +204,9 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
             g = T[i + 1] * 255.0;
             b = T[i + 2] * 255.0;
         }
-        dst[i] = PS.Util.clamp0255(r);
-        dst[i + 1] = PS.Util.clamp0255(g);
-        dst[i + 2] = PS.Util.clamp0255(b);
+        dst.data[i] = PS.Util.clamp0255(r);
+        dst.data[i + 1] = PS.Util.clamp0255(g);
+        dst.data[i + 2] = PS.Util.clamp0255(b);
     }
 };
 

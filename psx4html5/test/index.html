@@ -8,7 +8,7 @@
         Remove this if you use the .htaccess -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Library Test</title>
+        <title>psx</title>
         <meta name="description" content="" />
         <meta name="author" content="onezeros" />
 
@@ -17,7 +17,26 @@
         <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        
+		
+<script language="Javascript" src="../ps/ps.js"></script>
+<script language="Javascript" src="../ps/ps.util.js"></script>
+<script language="Javascript" src="../ps/ps.image.js"></script>
+<script language="Javascript" src="../ps/ps.image.mode.js"></script>
+<script language="Javascript" src="../ps/ps.image.adjustments.js"></script>
+<script language="Javascript" src="../ps/ps.filter.js"></script>
+<script language="Javascript" src="../ps/ps.filter.blur.js"></script>
+<script language="Javascript" src="../ps/ps.filter.distort.js"></script>
+<script language="Javascript" src="../ps/ps.filter.stylize.js"></script>
+<script language="Javascript" src="../ps/ps.filter.other.js"></script>
+<script language="Javascript" src="../ps/ps.layer.js"></script>
+
+<script language="Javascript" src="../effects/effects.js"></script>
+<script language="Javascript" src="../effects/effects.color.js"></script>
+<script language="Javascript" src="../effects/effects.colorshift.js"></script>
+<script language="Javascript" src="../effects/effects.deform.js"></script>
+<script language="Javascript" src="../effects/effects.funny.js"></script>
+<script language="Javascript" src="../effects/effects.instagram.js"></script>
+<script language="Javascript" src="../effects/effects.sketch.js"></script>
         <script>
         
 startList = function() 
@@ -120,7 +139,7 @@ li:hover ul, li.over ul { display: block; } /* The magic */
             </ul>
 
 
-<img id="scream" src="http://ww4.sinaimg.cn/mw600/a84f073ajw1dvsrhqht24j.jpg" alt="The Scream" width="500" height="500" />
+<img id="scream" src="Tulips.jpg" alt="The Scream" width="500" height="500" />
 <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
@@ -132,15 +151,7 @@ invert=function(){
   ctx.drawImage(img,0,0);
   var imgData=ctx.getImageData(0,0,c.width,c.height);
   
-  //Effects.invertColor(imgData,imgData);
-
-  for (var i=0;i<imgData.width*imgData.height*4;i+=4)
-    {
-    imgData.data[i]=255-imgData.data[i];
-    imgData.data[i+1]=255-imgData.data[i+1];
-    imgData.data[i+2]=255-imgData.data[i+2];
-    imgData.data[i+3]=255;
-    }
+  Effects.Color.invertColor(imgData,imgData);
 
   ctx.putImageData(imgData,0,0);
 };

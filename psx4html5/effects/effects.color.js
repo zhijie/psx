@@ -21,3 +21,28 @@
  *
  */
 
+Effects.Color = {};
+
+// blackwhite
+Effects.Color.blackwhite = function(src, dst) {
+	PS.Image.Adjustment.desaturate(src,dst);
+};
+
+// invert colors 
+Effects.Color.invertColor = function(src, dst){
+	PS.Image.Adjustment.invertColor(src,dst);
+};
+
+Effects.Color.infrared = function(src,dst)
+{
+	var colormap = [[],[],[]];
+	for (var i=0;i<128;i++){
+		colormap[0][i]=i<<1;
+		colormap[1][i]=0;
+		colormap[2][i]=255-colormap[0][i];
+		colormap[0][i+128]=colormap[1][i];
+		colormap[1][i+128]=colormap[2][i];
+		colormap[2][i+128]=0;
+	}
+	PS.Image.Adjustment.mapping(src,dst,colormap);
+}

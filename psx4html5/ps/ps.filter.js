@@ -20,10 +20,5 @@
  * THE SOFTWARE.
  *
  */
-
-
-// image data type use for all these functions are  
-
-Effects = {};
-
-
+ 
+ PS.Filter = {};

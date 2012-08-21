@@ -25,6 +25,23 @@
 // utility functions
 PS.Util = {};
 
+PS.Util.isArray =function(value)
+{
+	return typeof(value)=='object'&&(value instanceof(Array));
+}
+
+// src dst should be pre allocated.
+PS.Util.copyArray = function(src,dst,srcStart,dstStart,length)
+{
+	srcStart = typeof(srcStart) == 'undefined' ? 0 : srcStart;
+	dstStart = typeof(dstStart) == 'undefined' ? 0 : dstStart;
+	length = typeof(length) == 'undefined' ? 0 : length;
+	length = Math.min(length,src.length - srcStart, dst.length - dstStart);
+	for(var i =0; i < length; i++){
+		dst[dstStart +i] = src[srcStart + i];
+	}
+}
+
 PS.Util.clamp0255 = function(value)
 {
 	 return value > 255 ? 255 : ( value < 0 ? 0 : value);
@@ -53,3 +70,24 @@ PS.Util.cloneImageData = function(imageData)
 	  context.putImageData(imageData, 0, 0);
 	  return context.getImageData(0, 0, imageData.width, imageData.height);
 };
+
+// run convolution on ImageData
+PS.Util.convolution = function(src,_dst,kernel)
+{
+	var dst = _dst;
+    if(dst == src){
+        dst = PS.Util.copyImageData(src);
+    }
+    var kh = kernal.length;
+	var kw = kernal[0].length;
+	
+    if(dst != _dst){
+        _dst = PS.Util.copyImageData(dst);
+    }
+}
+
+// resize ImageData
+PS.Util.resize = function(src,dst)
+{
+	
+}
