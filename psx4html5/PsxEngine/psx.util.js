@@ -23,15 +23,15 @@
 
 
 // utility functions
-PS.Util = {};
+PSX.Util = {};
 
-PS.Util.isArray =function(value)
+PSX.Util.isArray =function(value)
 {
 	return typeof(value)=='object'&&(value instanceof(Array));
 }
 
 // src dst should be pre allocated.
-PS.Util.copyArray = function(src,dst,srcStart,dstStart,length)
+PSX.Util.copyArray = function(src,dst,srcStart,dstStart,length)
 {
 	srcStart = typeof(srcStart) == 'undefined' ? 0 : srcStart;
 	dstStart = typeof(dstStart) == 'undefined' ? 0 : dstStart;
@@ -42,25 +42,25 @@ PS.Util.copyArray = function(src,dst,srcStart,dstStart,length)
 	}
 }
 
-PS.Util.clamp0255 = function(value)
+PSX.Util.clamp0255 = function(value)
 {
 	 return value > 255 ? 255 : ( value < 0 ? 0 : value);
 };
-PS.Util.clamp = function(val, from, to)
+PSX.Util.clamp = function(val, from, to)
 {
 	return ((val) < (from) ? (from) : ((val) > (to) ? (to): (val)));
 };
 
-PS.Util.mix = function(x, y, alpha)
+PSX.Util.mix = function(x, y, alpha)
 {
 	return (x * (1 - alpha) + y * (alpha));
 };
-PS.Util.sqr = function (x)
+PSX.Util.sqr = function (x)
 {
 	return x * x;
 };
 
-PS.Util.cloneImageData = function(imageData) 
+PSX.Util.cloneImageData = function(imageData) 
 {
 	  var canvas, context;
 	  canvas = document.createElement('canvas');
@@ -72,22 +72,24 @@ PS.Util.cloneImageData = function(imageData)
 };
 
 // run convolution on ImageData
-PS.Util.convolution = function(src,_dst,kernel)
+PSX.Util.convolution = function(src,_dst,kernel)
 {
 	var dst = _dst;
     if(dst == src){
-        dst = PS.Util.copyImageData(src);
+        dst = PSX.Util.copyImageData(src);
     }
     var kh = kernal.length;
 	var kw = kernal[0].length;
-	
+	//TODO:
+    
+    
     if(dst != _dst){
-        _dst = PS.Util.copyImageData(dst);
+        _dst = PSX.Util.copyImageData(dst);
     }
 }
 
 // resize ImageData
-PS.Util.resize = function(src,dst)
+PSX.Util.resize = function(src,dst)
 {
 	
 }

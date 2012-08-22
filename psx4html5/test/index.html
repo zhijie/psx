@@ -18,17 +18,17 @@
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
-<script language="Javascript" src="../ps/ps.js"></script>
-<script language="Javascript" src="../ps/ps.util.js"></script>
-<script language="Javascript" src="../ps/ps.image.js"></script>
-<script language="Javascript" src="../ps/ps.image.mode.js"></script>
-<script language="Javascript" src="../ps/ps.image.adjustments.js"></script>
-<script language="Javascript" src="../ps/ps.filter.js"></script>
-<script language="Javascript" src="../ps/ps.filter.blur.js"></script>
-<script language="Javascript" src="../ps/ps.filter.distort.js"></script>
-<script language="Javascript" src="../ps/ps.filter.stylize.js"></script>
-<script language="Javascript" src="../ps/ps.filter.other.js"></script>
-<script language="Javascript" src="../ps/ps.layer.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.util.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.image.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.image.mode.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.image.adjustments.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.filter.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.filter.blur.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.filter.distort.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.filter.stylize.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.filter.other.js"></script>
+<script language="Javascript" src="../PsxEngine/psx.layer.js"></script>
 
 <script language="Javascript" src="../PsxEffects/PsxEffects.js"></script>
 <script language="Javascript" src="../PsxEffects/PsxEffects.color.js"></script>
@@ -111,16 +111,20 @@ li:hover ul, li.over ul { display: block; } /* The magic */
     <body>
         <div>
             <header>
-                <h1>Test</h1>
+                <h1>psx </h1>
             </header>
             
             <ul id="nav">
                 <li>
                     Color
                     <ul>
-                        <li onclick="PsxEffects('blackwhite')">blackwhite</li>
-                        <li onclick="PsxEffects('invert')">invert</li>
-                        <li onclick="PsxEffects('infrared')">infrared</li>
+                        <li onclick="performEffect('blackwhite')">blackwhite</li>
+                        <li onclick="performEffect('invert')">invert</li>
+                        <li onclick="performEffect('infrared')">infrared</li>
+						<li onclick="performEffect('sepia')">sepia</li>
+						<li onclick="performEffect('bluetone')">bluetone</li>
+                        <li onclick="performEffect('solarize')">solarize</li>
+                        <li onclick="performEffect('emboss')">emboss</li>
                     </ul>
                 </li>
                 <li>
@@ -140,15 +144,15 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     Deform
                     <ul>
-                        <li onclick="PsxEffects('fisheye')">fisheye</li>
-                        <li onclick="PsxEffects('shrink')">shrink</li>
-                        <li onclick="PsxEffects('swirl')">swirl</li>
-                        <li onclick="PsxEffects('wave')">wave</li>                        
-                        <li onclick="PsxEffects('mosaic')">mosaic</li>
-                        <li onclick="PsxEffects('mirrorright2left')">mirrorright2left</li>
-                        <li onclick="PsxEffects('mirrorleft2right')">mirrorleft2right</li>
-                        <li onclick="PsxEffects('mirrortop2bottom')">mirrortop2bottom</li>
-                        <li onclick="PsxEffects('mirrorbottom2top')">mirrorbottom2top</li>
+                        <li onclick="performEffect('fisheye')">fisheye</li>
+                        <li onclick="performEffect('shrink')">shrink</li>
+                        <li onclick="performEffect('swirl')">swirl</li>
+                        <li onclick="performEffect('wave')">wave</li>                        
+                        <li onclick="performEffect('mosaic')">mosaic</li>
+                        <li onclick="performEffect('mirrorright2left')">mirrorright2left</li>
+                        <li onclick="performEffect('mirrorleft2right')">mirrorleft2right</li>
+                        <li onclick="performEffect('mirrortop2bottom')">mirrortop2bottom</li>
+                        <li onclick="performEffect('mirrorbottom2top')">mirrorbottom2top</li>
                     </ul>
                 </li>
                 <li>
@@ -167,13 +171,13 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 </li>
             </ul>
 
-
-<img id="scream" src="the_scream.jpg" alt="The Scream" width="220" height="277" />
-<canvas id="myCanvas" width="220" height="277" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="600" height="337" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
+<img id="scream" src="jelleyfish.jpg" alt="The Scream" width="600" height="337" />
+
 
 <script type="text/javascript">
-PsxEffects=function(type){
+performEffect=function(type){
   var c=document.getElementById("myCanvas");
   var ctx=c.getContext("2d");
   var img=document.getElementById("scream");
@@ -182,31 +186,35 @@ PsxEffects=function(type){
    
   var effectmap = new Object();
   //color
-  effectmap['invert'] = Effects.Color.invertColor;
-  effectmap['blackwhite'] = Effects.Color.blackwhite;
-  effectmap['infrared'] = Effects.Color.infrared;
+  effectmap['invert'] = PsxEffects.Color.invertColor;
+  effectmap['blackwhite'] = PsxEffects.Color.blackwhite;
+  effectmap['infrared'] = PsxEffects.Color.infrared;
+  effectmap['bluetone'] = PsxEffects.Color.bluetone;
+  effectmap['sepia'] = PsxEffects.Color.sepia;
+  effectmap['solarize'] = PsxEffects.Color.solarize;
+  effectmap['emboss'] = PsxEffects.Color.emboss;
   //deform
   var bottom2topFunc = function(src,dst){
-    Effects.Deform.mirror(src,dst,'bottom2top');
+    PsxEffects.Deform.mirror(src,dst,'bottom2top');
   };
   var top2bottomFunc = function(src,dst){
-    Effects.Deform.mirror(src,dst,'top2bottom');
+    PsxEffects.Deform.mirror(src,dst,'top2bottom');
   };
   var left2rightFunc = function(src,dst){
-    Effects.Deform.mirror(src,dst,'left2right');
+    PsxEffects.Deform.mirror(src,dst,'left2right');
   };
   var right2leftFunc = function(src,dst){
-    Effects.Deform.mirror(src,dst,'right2left');
+    PsxEffects.Deform.mirror(src,dst,'right2left');
   };
   effectmap['mirrorbottom2top'] = bottom2topFunc;
   effectmap['mirrortop2bottom'] = top2bottomFunc;
   effectmap['mirrorleft2right'] = left2rightFunc;
   effectmap['mirrorright2left'] = right2leftFunc;
-  effectmap['fisheye'] = Effects.Deform.fisheye;
-  effectmap['shrink'] = Effects.Deform.shrink;
-  effectmap['swirl'] = Effects.Deform.swirl;
-  effectmap['wave'] = Effects.Deform.wave;
-  effectmap['mosaic'] = Effects.Deform.mosaic;
+  effectmap['fisheye'] = PsxEffects.Deform.fisheye;
+  effectmap['shrink'] = PsxEffects.Deform.shrink;
+  effectmap['swirl'] = PsxEffects.Deform.swirl;
+  effectmap['wave'] = PsxEffects.Deform.wave;
+  effectmap['mosaic'] = PsxEffects.Deform.mosaic;
   
   
   var effectFunc = effectmap[type];   

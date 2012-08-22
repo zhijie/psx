@@ -1,7 +1,0 @@
-<script language="Javascript" src="effects.js"></script>
-<script language="Javascript" src="effects.color.js"></script>
-<script language="Javascript" src="effects.colorshift.js"></script>
-<script language="Javascript" src="effects.deform.js"></script>
-<script language="Javascript" src="effects.funny.js"></script>
-<script language="Javascript" src="effects.instagram.js"></script>
-<script language="Javascript" src="effects.sketch.js"></script>

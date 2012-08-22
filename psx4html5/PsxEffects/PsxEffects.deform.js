@@ -21,12 +21,12 @@
  *
  */
 
-Effects.Deform = {};
+PsxEffects.Deform = {};
 
-Effects.Deform.mirror = function(src,dst,type)
+PsxEffects.Deform.mirror = function(src,dst,type)
 {
 	if(dst != src){
-		PS.Util.copyArray(src.data,dst.data);
+		PSX.Util.copyArray(src.data,dst.data);
 	}
     var left2right = function(src,dst) {
         var widthStep = src.width*4;
@@ -55,7 +55,7 @@ Effects.Deform.mirror = function(src,dst,type)
 		var psrc =0;
 		var pdst = dst.data.length - widthStep;
         for(var h =0; h < src.height/2; h++) {
-            PS.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
+            PSX.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
             psrc += widthStep;
             pdst -= widthStep;
         }
@@ -65,7 +65,7 @@ Effects.Deform.mirror = function(src,dst,type)
 		var pdst =0;
 		var psrc = dst.data.length - widthStep;
         for(var h =0; h < src.height/2; h++) {
-            PS.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
+            PSX.Util.copyArray(src.data,dst.data,psrc,pdst,widthStep);
             psrc -= widthStep;
             pdst += widthStep;
         }
@@ -86,21 +86,21 @@ Effects.Deform.mirror = function(src,dst,type)
     }
 };
 
-Effects.Deform.fisheye = function(src,dst)
+PsxEffects.Deform.fisheye = function(src,dst)
 {
 };
-Effects.Deform.shrink = function(src,dst)
-{
-};
-
-Effects.Deform.swirl = function(src,dst)
+PsxEffects.Deform.shrink = function(src,dst)
 {
 };
 
-Effects.Deform.wave = function(src,dst)
+PsxEffects.Deform.swirl = function(src,dst)
 {
 };
 
-Effects.Deform.mosaic = function(src,dst)
+PsxEffects.Deform.wave = function(src,dst)
+{
+};
+
+PsxEffects.Deform.mosaic = function(src,dst)
 {
 };

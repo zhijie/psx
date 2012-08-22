@@ -28,7 +28,7 @@
 
 // for layer blending, alpha is not considered here, alpha is assumed to be 255 which is general situation
 
-PS.Layer = {};
+PSX.Layer = {};
 
 _blendNormal= function(F, B)
 {
@@ -145,132 +145,132 @@ _blending = function(background, forground, dst, func) {
     }
 };
 
-PS.Layer.blendNormal = function(background, foreground, dst)
+PSX.Layer.blendNormal = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendNormal);
 };
 
-PS.Layer.blendLighten = function(background, foreground, dst)
+PSX.Layer.blendLighten = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendLighten);
 };
 
-PS.Layer.blendDarken = function(background, foreground, dst)
+PSX.Layer.blendDarken = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendDarken);
 };
 
-PS.Layer.blendMultiply = function(background, foreground, dst){
+PSX.Layer.blendMultiply = function(background, foreground, dst){
 
     _blending(background, foreground, dst, _blendMultiply);
 };
 
-PS.Layer.blendAverage = function(background, foreground, dst)
+PSX.Layer.blendAverage = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendAverage);
 };
 
-PS.Layer.blendAdd = function(background, foreground, dst)
+PSX.Layer.blendAdd = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendAdd);
 };
 
-PS.Layer.blendSubtract = function(background, foreground, dst)
+PSX.Layer.blendSubtract = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendSubtract);
 };
 
-PS.Layer.blendDifference = function(background, foreground, dst)
+PSX.Layer.blendDifference = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendDifference);
 };
 
-PS.Layer.blendNegation = function(background, foreground, dst)
+PSX.Layer.blendNegation = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendNegation);
 };
 
-PS.Layer.blendScreen = function(background, foreground, dst)
+PSX.Layer.blendScreen = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendScreen);
 };
 
-PS.Layer.blendExclusion = function(background, foreground, dst)
+PSX.Layer.blendExclusion = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendExclusion);
 };
 
-PS.Layer.blendOverlay = function(background, foreground, dst)
+PSX.Layer.blendOverlay = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendOverlay);
 };
 
-PS.Layer.blendSoftLight = function(background, foreground, dst)
+PSX.Layer.blendSoftLight = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendSoftLight);
 };
 
-PS.Layer.blendHardLight = function(background, foreground, dst)
+PSX.Layer.blendHardLight = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendHardLight);
 };
 
-PS.Layer.blendColorDodge = function(background, foreground, dst)
+PSX.Layer.blendColorDodge = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendColorDodge);
 };
 
-PS.Layer.blendColorBurn = function(background, foreground, dst)
+PSX.Layer.blendColorBurn = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendColorBurn);
 };
 
-PS.Layer.blendLinearDodge = function(background, foreground, dst)
+PSX.Layer.blendLinearDodge = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendLinearDodge);
 };
 
-PS.Layer.blendLinearBurn = function(background, foreground, dst)
+PSX.Layer.blendLinearBurn = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendLinearBurn);
 };
 
-PS.Layer.blendLinearLight = function(background, foreground, dst)
+PSX.Layer.blendLinearLight = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendLinearLight);
 };
 
-PS.Layer.blendVividLight = function(background, foreground, dst)
+PSX.Layer.blendVividLight = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendVividLight);
 };
 
-PS.Layer.blendPinLight = function(background, foreground, dst)
+PSX.Layer.blendPinLight = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendPinLight);
 };
 
-PS.Layer.blendHardMix = function(background, foreground, dst)
+PSX.Layer.blendHardMix = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendHardMix);
 };
 
-PS.Layer.blendReflect = function(background, foreground, dst)
+PSX.Layer.blendReflect = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendReflect);
 };
-PS.Layer.blendGlow = function(background, foreground, dst)
+PSX.Layer.blendGlow = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendGlow);
 };
 
-PS.Layer.blendPhoenix = function(background, foreground, dst)
+PSX.Layer.blendPhoenix = function(background, foreground, dst)
 {
     _blending(background, foreground, dst, _blendPhoenix);
 };
 
 // alpha blending , alpha ranges in [0.0, 1.0]
-PS.Layer.blendAlpha = function(background, foreground, alpha, dst)
+PSX.Layer.blendAlpha = function(background, foreground, alpha, dst)
 {
     var len = src.width*src.height*4;
     for(var i =0; i < len; i+= 4) {
@@ -281,25 +281,25 @@ PS.Layer.blendAlpha = function(background, foreground, alpha, dst)
     }
 };
 
-PS.Layer.blendLuminosity = function(background, foreground, dst)
+PSX.Layer.blendLuminosity = function(background, foreground, dst)
 {
     // TODO:
 };
 
 
-PS.Layer.blendColor = function(background, foreground, dst)
+PSX.Layer.blendColor = function(background, foreground, dst)
 {
     // TODO:
 };
 
 
-PS.Layer.blendHue = function(background, foreground, dst)
+PSX.Layer.blendHue = function(background, foreground, dst)
 {
     // TODO:
 };
 
 
-PS.Layer.blendSaturation = function(background, foreground, dst)
+PSX.Layer.blendSaturation = function(background, foreground, dst)
 {
     // TODO:
 };

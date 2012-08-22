@@ -21,4 +21,4 @@
  *
  */
  
- PS.Image = {};
+ PSX.Image = {};

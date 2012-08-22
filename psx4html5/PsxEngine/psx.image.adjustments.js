@@ -25,10 +25,10 @@
  * implements operations in Photoshop cs6 menu:Image->Adjustments
  */
 
-PS.Image.Adjustment = {};
+PSX.Image.Adjustment = {};
 
 // desaturate
-PS.Image.Adjustment.desaturate = function(src,dst)
+PSX.Image.Adjustment.desaturate = function(src,dst)
 {
     var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
@@ -46,7 +46,7 @@ PS.Image.Adjustment.desaturate = function(src,dst)
 };
 
 //invert color
-PS.Image.Adjustment.invertColor = function(src,dst)
+PSX.Image.Adjustment.invertColor = function(src,dst)
 {
 	var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
@@ -56,7 +56,7 @@ PS.Image.Adjustment.invertColor = function(src,dst)
     }
 };
 
-PS.Image.Adjustment.posterize = function(src,dst,level)
+PSX.Image.Adjustment.posterize = function(src,dst,level)
 {	
 	// level = level || 4;
 	level = typeof level != 'undefined' ? level : 4;
@@ -68,7 +68,7 @@ PS.Image.Adjustment.posterize = function(src,dst,level)
     }
 };
 
-PS.Image.Adjustment.threshold = function(src,dst,thresholdValue)
+PSX.Image.Adjustment.threshold = function(src,dst,thresholdValue)
 {	
 	// thresholdValue = thresholdValue || 128;
 	thresholdValue = typeof thresholdValue != 'undefined' ? thresholdValue : 128;
@@ -83,7 +83,7 @@ PS.Image.Adjustment.threshold = function(src,dst,thresholdValue)
 // parameter: map must be array of size 1x256 or 3x256
 // used by gradientMap,curve, level.
 // no corresponding operation in PS
-PS.Image.Adjustment.mapping = function(src,dst,map)
+PSX.Image.Adjustment.mapping = function(src,dst,map)
 {
 	var len = src.width*src.height*4;
 	if(map.length == 3){//3*356
@@ -102,7 +102,7 @@ PS.Image.Adjustment.mapping = function(src,dst,map)
 }
 
 // posleft must be smaller than posRight, see photoshop for details 
-PS.Image.Adjustment.level(src, dst, posLeft, posRight)
+PSX.Image.Adjustment.level(src, dst, posLeft, posRight)
 {
     var scale = 255.0 / (posRight - posLeft);
 	var map = new Array();
@@ -118,23 +118,23 @@ PS.Image.Adjustment.level(src, dst, posLeft, posRight)
     mapping(src,dst,map);
 }
 // parameter: map must be array of size 1x256 or 3x256
-PS.Image.Adjustment.gradientmap = function(src,_dst,map)
+PSX.Image.Adjustment.gradientmap = function(src,_dst,map)
 {
 	var dst = _dst;
 	if(src == dst) {
-		dst = PS.Util.cloneImageData(src);
+		dst = PSX.Util.cloneImageData(src);
 	}
 	// grayscale
-	PS.Image.Mode.rgb2gray(src,dst);
+	PSX.Image.Mode.rgb2gray(src,dst);
 	// map
 	mapping(src,dst,map);
 	
 	if(dst != _dst){
-    	_dst = PS.Util.cloneImageData(dst);
+    	_dst = PSX.Util.cloneImageData(dst);
     }
 }
 // parameter: points should be a array of points, formated like this:[[0,0],[128,200],[255,255]]
-PS.Image.Adjustment.curve = function(src,_dst,points)
+PSX.Image.Adjustment.curve = function(src,_dst,points)
 {
 	var secondDerivative = function(controlPts)
     {
@@ -223,7 +223,7 @@ PS.Image.Adjustment.curve = function(src,_dst,points)
 	
 	var dst = _dst;
 	if(src == dst) {
-		dst = PS.Util.cloneImageData(src);
+		dst = PSX.Util.cloneImageData(src);
 	}
 	// generate curve
 	var map = generateCurve(points);
@@ -231,6 +231,6 @@ PS.Image.Adjustment.curve = function(src,_dst,points)
 	mapping(src,dst,map);
 	
 	if(dst != _dst){
-    	_dst = PS.Util.cloneImageData(dst);
+    	_dst = PSX.Util.cloneImageData(dst);
     }
 }

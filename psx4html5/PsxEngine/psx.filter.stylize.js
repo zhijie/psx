@@ -20,5 +20,51 @@
  * THE SOFTWARE.
  *
  */
- 
- PS.Filter = {};
+
+/**
+ * implements operations in Photoshop cs6 menu:Filter->Stylize
+ */
+
+PSX.Filter.Stylize = {};
+
+// solarize in photoshop,i.e. over exposuse
+PSX.Filter.Stylize.solarize = function(src, dst)
+{
+	var len = src.width * src.height * 4;
+	for(var i =0;  i < len; i+=4){
+		for(var ch =0; ch < 3; ch++){
+			var v = src.data[i + ch];
+			dst.data[i + ch] = v <128 ? v:255 -v;
+		}		
+	}
+}
+
+PSX.Filter.Stylize.emboss = function(src, _dst)
+{
+    var dst = _dst;
+    if(dst == src){
+        dst = PSX.Util.copyImageData(src);
+    }
+	var nChannel = 4;
+	var widthStep = src.width * nChannel;
+    for(var h = 1; h < src.height -1; h++){
+		var psrc = nChannel + h * widthStep;
+		var psrcUp = psrc - widthStep - nChannel;
+		var psrcDown = psrc + widthStep + nChannel;
+		var pdst = nChannel + h * widthStep;
+		for(var w =1; w < src.width -1; w++){
+			for(var ch =0; ch < 3; ch++){
+				dst.data[pdst + ch] = PSX.Util.clamp0255(src.data[psrcUp] * 2 - src.data[psrc] - src.data[psrcDown] + 128);
+			}
+			psrc +=4;
+			psrcUp +=4;
+			psrcDown +=4;
+			pdst +=4;
+		}
+	}
+	// TODO : boarder process
+	
+    if(dst != _dst){
+        _dst = PSX.Util.copyImageData(dst);
+    }
+}

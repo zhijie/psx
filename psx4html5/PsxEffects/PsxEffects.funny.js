@@ -21,3 +21,5 @@
  *
  */
 
+// four strip of binary color : |||| or =
+poster()

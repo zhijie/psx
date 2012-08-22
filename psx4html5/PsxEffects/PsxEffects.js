@@ -24,6 +24,6 @@
 
 // image data type use for all these functions are  
 
-Effects = {};
+PsxEffects = {};
 
 

@@ -25,14 +25,14 @@
  * implements operations in Photoshop cs6 menu:Filter->Other
  */
 
-PS.Filter.Other = {};
+PSX.Filter.Other = {};
 
 // minimum filter
-PS.Filter.Other.minimum = function(src,_dst,filterRadius)
+PSX.Filter.Other.minimum = function(src,_dst,filterRadius)
 {
 	var dst = _dst;
 	if(src == dst) {
-		dst = PS.Util.cloneImageData(src);
+		dst = PSX.Util.cloneImageData(src);
 	}
 	
     var filterWidth=(filterRadius<<1)+1;
@@ -52,6 +52,6 @@ PS.Filter.Other.minimum = function(src,_dst,filterRadius)
     }
   */ 
     if(dst != _dst){
-    	_dst = PS.Util.cloneImageData(dst);
+    	_dst = PSX.Util.cloneImageData(dst);
     }
 };

@@ -25,11 +25,11 @@
  * implements operations in Photoshop cs6 menu:Image->Mode
  * color space conversion 
  */
-PS.Image.Mode = {};
+PSX.Image.Mode = {};
 
-PS.Image.Mode.rgb2gray = function(src,dst) 
+PSX.Image.Mode.rgb2gray = function(src,dst) 
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
     	var gray = (src.data[i]>>2) + (src.data[i + 1] >> 1) + (src.data[i + 2] >> 2);	
         for (var ch=0; ch <3; ch++) {
@@ -38,32 +38,46 @@ PS.Image.Mode.rgb2gray = function(src,dst)
     }
 };
 
-PS.Image.Mode.rgb2yuv = function(src,dst) 
+PSX.Image.Mode.rgb2yuv = function(src,_dst) 
 {
-    var len = src.width*src.height*4;
+    var dst = _dst;
+    if(dst == src){
+        dst = PSX.Util.copyImageData(src);
+    }
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
-		dst.data[i] = PS.Util.clamp0255((src.data[i] * 0.257 ) + (src.data[i + 1] * 0.504) + (src.data[i + 2] * 0.098) + 16); // y
-		dst.data[i + 1] = PS.Util.clamp0255((src.data[i] * 0.439) - (src.data[i + 1] * 0.368) - (src.data[i + 2] * 0.071) + 128); // u
-		dst.data[i + 2] = PS.Util.clamp0255(- (src.data[i] * 0.148) - (src.data[i + 1] * 0.291) + (src.data[i + 2] * 0.439) + 128); // v
+		dst.data[i] = PSX.Util.clamp0255((src.data[i] * 0.257 ) + (src.data[i + 1] * 0.504) + (src.data[i + 2] * 0.098) + 16); // y
+		dst.data[i + 1] = PSX.Util.clamp0255((src.data[i] * 0.439) - (src.data[i + 1] * 0.368) - (src.data[i + 2] * 0.071) + 128); // u
+		dst.data[i + 2] = PSX.Util.clamp0255(- (src.data[i] * 0.148) - (src.data[i + 1] * 0.291) + (src.data[i + 2] * 0.439) + 128); // v
+    }
+    if(dst != _dst){
+        _dst = PSX.Util.copyImageData(dst);
     }
 };
 
 
-PS.Image.Mode.yuv2rgb = function(src,dst) 
+PSX.Image.Mode.yuv2rgb = function(src,_dst) 
 {
-    var len = src.width*src.height*4;
+    var dst = _dst;
+    if(dst == src){
+        dst = PSX.Util.copyImageData(src);
+    }
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
 		var y1 = 1.164 * (src.data[i] - 16);
-		dst.data[i] = PS.Util.clamp0255(y1 + 2.018 * (src.data[i + 1] - 128)); // y
-		dst.data[i + 1] = PS.Util.clamp0255(y1 - 0.813 * (src.data[i + 2] - 128) - 0.391 *(src.data[i + 1] - 128)); // u
-		dst.data[i + 2] = PS.Util.clamp0255(y1 + 1.596 * (src.data[i + 2] - 128)); // v
+		dst.data[i] = PSX.Util.clamp0255(y1 + 2.018 * (src.data[i + 1] - 128)); // y
+		dst.data[i + 1] = PSX.Util.clamp0255(y1 - 0.813 * (src.data[i + 2] - 128) - 0.391 *(src.data[i + 1] - 128)); // u
+		dst.data[i + 2] = PSX.Util.clamp0255(y1 + 1.596 * (src.data[i + 2] - 128)); // v
+    }
+    if(dst != _dst){
+        _dst = PSX.Util.copyImageData(dst);
     }
 };
 
 
-PS.Image.Mode.rgb2hsv = function(src,dst) 
+PSX.Image.Mode.rgb2hsv = function(src,dst) 
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
 		var R = src.data[i]/255.0;
 		var G = src.data[i + 1] / 255.0;
@@ -93,9 +107,9 @@ PS.Image.Mode.rgb2hsv = function(src,dst)
     }
 };
 
-PS.Image.Mode.hsv2rgb = function(src,dst) 
+PSX.Image.Mode.hsv2rgb = function(src,dst) 
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
 		var hue = src.data[i] * 2;
 		var saturation = src.data[i + 1];
@@ -121,9 +135,9 @@ PS.Image.Mode.hsv2rgb = function(src,dst)
     }
 };
 
-PS.Image.Mode.rgb2hsl = function(src,dst) 
+PSX.Image.Mode.rgb2hsl = function(src,dst) 
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
 		var h = 0, s = 0, l = 0;
 		// normalizes red-green-blue values
@@ -164,9 +178,9 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
     }
 };
 
-PS.Image.Mode.rgb2hsl = function(src,dst) 
+PSX.Image.Mode.rgb2hsl = function(src,dst) 
 {
-    var len = src.width*src.height*4;
+    var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
 		var h = src.data[i] * 2;
 		var s = src.data[i + 1] / 255.0;
@@ -204,9 +218,9 @@ PS.Image.Mode.rgb2hsl = function(src,dst)
             g = T[i + 1] * 255.0;
             b = T[i + 2] * 255.0;
         }
-        dst.data[i] = PS.Util.clamp0255(r);
-        dst.data[i + 1] = PS.Util.clamp0255(g);
-        dst.data[i + 2] = PS.Util.clamp0255(b);
+        dst.data[i] = PSX.Util.clamp0255(r);
+        dst.data[i + 1] = PSX.Util.clamp0255(g);
+        dst.data[i + 2] = PSX.Util.clamp0255(b);
     }
 };
 
