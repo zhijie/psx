@@ -56,6 +56,9 @@ PsxEffects.Color.infrared = function(src,dst)
 };
 // sepia/brown color tone, 
 PsxEffects.Color.sepia = function(src, dst){
+PSX.Image.Mode.rgb2yuv(src,dst);
+return;
+    // TODO: constant pre calculation
 	var r = 130;
 	var g = 220;
 	var b = 81;
@@ -72,6 +75,7 @@ PsxEffects.Color.sepia = function(src, dst){
 
 // blue color tone
 PsxEffects.Color.bluetone = function(src, dst){
+    // TODO: constant pre calculation
 	var r = 130;
 	var g = 220;
 	var b = 81;
