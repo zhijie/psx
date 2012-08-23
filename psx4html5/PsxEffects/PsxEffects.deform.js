@@ -86,21 +86,109 @@ PsxEffects.Deform.mirror = function(src,dst,type)
     }
 };
 
+// used by effects below
+PsxEffects.Deform.reshaper = function(src,dst,func)
+{
+    var radiusLength = function(coord) {
+        return Math.sqrt(coord[0] * coord[0] + coord[1] * coord[1]);
+    }
+    for(var h =0; h < dst.width; h++){
+        var pdst = h * dst.width * 4;
+        for(var w =0; w < dst.width; w++){
+            // change coordinates to [-1,1]            
+            var normalCoord = [2.0 * w/src.width -1,2.0 * h/src.width -1];
+            var radius = radiusLength(normalCoord);
+            var phase = Math.atan2(normalCoord[1],normalCoord[0]);
+            var t = func(radius,phase);
+            radius = t[0];
+            phase = t[1];
+            var newx = radius * Math.cos(phase);
+            var newy = radius * Math.sin(phase);
+            var centerX = (newx + 1)/2 * src.width;
+            var centerY = (newy +1)/2 * src.height;
+            
+            var baseX = Math.floor(centerX);
+            var baseY = Math.floor(centerY);
+            var ratioR = centerX - baseX;
+            var ratioL = 1 - ratioR;
+            var ratioB = centerY - baseY;
+            var ratioT = 1 -ratioB;
+            if(baseX < 0 || baseY <0 || baseX >= src.width || baseY >= src.height){
+                pdst +=4;
+                continue;
+            }
+            // topleft
+            var pstl = (baseX + baseY * src.width) * 4;
+            // topright
+            var pstr = pstl + 4;
+            // bottomleft
+            var psbl = pstl + src.width * 4;
+            // bottom right
+            var psbr = psbl +4;
+            for(var ch =0; ch < 4; ch++){
+                var tc = src.data[ pstl++] * ratioL + src.data[ pstr++] * ratioR;
+                var bc = src.data[ psbl++] * ratioL + src.data[ psbr++] * ratioR;
+                dst.data[pdst++] = tc * ratioT + bc * ratioB;
+            }
+        }
+    }
+}
 PsxEffects.Deform.fisheye = function(src,dst)
 {
+    var param = 1.5;// [0.1, 4]
+    var func = function(r,p) {
+        return [Math.pow(r,param)/Math.sqrt(2),p];
+    }
+    PsxEffects.Deform.reshaper(src,dst,func);
 };
 PsxEffects.Deform.shrink = function(src,dst)
 {
+    var param1 = 1.8;        // [1, 3]
+    var param2 = 0.8;        // [0.1, 2]
+    var func = function(r,p) { 
+        return [Math.pow(r,1.0/param1)*param2, p];
+    }
+    PsxEffects.Deform.reshaper(src,dst,func);
 };
 
 PsxEffects.Deform.swirl = function(src,dst)
 {
+    var param1 = 0.5;          // [0, 2]
+    var param2 = 4.0;          // [1, 9]
+    var func = function(r,p) {
+        p = p + (1.0 - PSX.Util.smoothstep(r, -param1, param1)) * param2;
+        return [r, p];
+    }
+    PsxEffects.Deform.reshaper(src,dst,func);
 };
 
 PsxEffects.Deform.wave = function(src,dst)
 {
+    //TODO:
 };
 
 PsxEffects.Deform.mosaic = function(src,dst)
 {
+	var tilesize = 10;
+	var widthStep = src.width*4;
+	var pdst =0;
+	for(var h =0; h < src.height; h++) {
+	    if( h % tilesize == 0){
+	        for(var w =0; w < src.width; w ++){
+    	        if(w % tilesize == 0){
+    	            for(var ch =0; ch < 4; ch++) {
+                        dst.data[pdst + ch] = src.data[pdst + ch];              
+                    }
+    	        }else {
+    	            for(var ch =0; ch < 4; ch++) {                 
+                        dst.data[pdst + ch] = dst.data[pdst -4 + ch];               
+                    }
+    	        }
+    	        pdst += 4;
+    	    }
+	    }else {
+	        PSX.Util.copyArray(dst.data,dst.data,pdst - widthStep,pdst,widthStep);
+	        pdst += widthStep;
+	    }
+	}
 };

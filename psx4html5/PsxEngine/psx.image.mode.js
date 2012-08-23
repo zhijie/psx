@@ -42,9 +42,7 @@ PSX.Image.Mode.rgb2yuv = function(src,_dst)
 {
     var dst = _dst;
     if(dst == src){
-        //TODO: bug here
-        dst = PSX.Util.copyImageData(src);
-        
+        dst = PSX.Util.cloneImageData(src);        
     }
     var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
@@ -53,7 +51,6 @@ PSX.Image.Mode.rgb2yuv = function(src,_dst)
 		dst.data[i + 2] = PSX.Util.clamp0255(- (src.data[i] * 0.148) - (src.data[i + 1] * 0.291) + (src.data[i + 2] * 0.439) + 128); // v
     }
     if(dst != _dst){
-        //_dst = PSX.Util.copyImageData(dst);
         PSX.Util.copyArray(dst.data,_dst.data);
     }
 };
@@ -63,7 +60,7 @@ PSX.Image.Mode.yuv2rgb = function(src,_dst)
 {
     var dst = _dst;
     if(dst == src){
-        dst = PSX.Util.copyImageData(src);
+        dst = PSX.Util.cloneImageData(src);
     }
     var len = src.data.length;
     for(var i =0; i < len; i+= 4) {
@@ -73,7 +70,6 @@ PSX.Image.Mode.yuv2rgb = function(src,_dst)
 		dst.data[i + 2] = PSX.Util.clamp0255(y1 + 1.596 * (src.data[i + 2] - 128)); // v
     }
     if(dst != _dst){
-        //_dst = PSX.Util.copyImageData(dst);
         PSX.Util.copyArray(dst.data,_dst.data);
     }
 };

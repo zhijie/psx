@@ -56,36 +56,39 @@ PsxEffects.Color.infrared = function(src,dst)
 };
 // sepia/brown color tone, 
 PsxEffects.Color.sepia = function(src, dst){
-PSX.Image.Mode.rgb2yuv(src,dst);
-return;
-    // TODO: constant pre calculation
-	var r = 130;
-	var g = 220;
-	var b = 81;
-	var u = r * -0.168736 + g * -0.331264 + b *  0.500000 + 128;
-	var v = r *  0.500000 + g * -0.418688 + b * -0.081312 + 128;
-	PSX.Image.Mode.rgb2yuv(src,dst);
-	var len = src.data.length;
-	for(var i=0;i < len; i+=4) {
-		dst.data[i + 1] = u;
-		dst.data[i + 2] = v;
-	}
-	PSX.Image.Mode.yuv2rgb(dst,dst);
-};
-
-// blue color tone
-PsxEffects.Color.bluetone = function(src, dst){
-    // TODO: constant pre calculation
-	var r = 130;
-	var g = 220;
-	var b = 81;
-	var u = r * -0.168736 + g * -0.331264 + b *  0.500000 + 128;
-	var v = r *  0.500000 + g * -0.418688 + b * -0.081312 + 128;
+    //TODO:color not right
+    var u = 73.686;
+    var v = 94.302;
 	PSX.Image.Mode.rgb2yuv(src,dst);
 	var len = src.data.length;
 	for(var i=0;i < len; i+=4) {
 		dst.data[i + 1] = v;
 		dst.data[i + 2] = u;
+	}
+	PSX.Image.Mode.yuv2rgb(dst,dst);
+};
+// blue color tone
+PsxEffects.Color.bluetone = function(src, dst){
+    //TODO:color not right
+    var u = 73.686;
+    var v = 94.302;
+    PSX.Image.Mode.rgb2yuv(src,dst);
+    var len = src.data.length;
+    for(var i=0;i < len; i+=4) {
+        dst.data[i + 1] = u;
+        dst.data[i + 2] = v;
+    }
+    PSX.Image.Mode.yuv2rgb(dst,dst);
+};
+// green color tone
+PsxEffects.Color.greentone = function(src, dst){
+    var u = 73.686;
+    var v = 94.302;
+	PSX.Image.Mode.rgb2yuv(src,dst);
+	var len = src.data.length;
+	for(var i=0;i < len; i+=4) {
+		dst.data[i + 1] = u;
+		dst.data[i + 2] = v;
 	}
 	PSX.Image.Mode.yuv2rgb(dst,dst);
 };

@@ -21,5 +21,9 @@
  *
  */
 
+PsxEffects.Funny = {};
+
 // four strip of binary color : |||| or =
-poster()
+PsxEffects.Funny.poster = function() {
+    
+}

@@ -102,7 +102,7 @@ PSX.Image.Adjustment.mapping = function(src,dst,map)
 }
 
 // posleft must be smaller than posRight, see photoshop for details 
-PSX.Image.Adjustment.level(src, dst, posLeft, posRight)
+PSX.Image.Adjustment.level=function(src, dst, posLeft, posRight)
 {
     var scale = 255.0 / (posRight - posLeft);
 	var map = new Array();

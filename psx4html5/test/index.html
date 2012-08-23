@@ -123,6 +123,7 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                         <li onclick="performEffect('infrared')">infrared</li>
 						<li onclick="performEffect('sepia')">sepia</li>
 						<li onclick="performEffect('bluetone')">bluetone</li>
+						<li onclick="performEffect('greentone')">greentone</li>
                         <li onclick="performEffect('solarize')">solarize</li>
                         <li onclick="performEffect('emboss')">emboss</li>
                     </ul>
@@ -190,6 +191,7 @@ performEffect=function(type){
   effectmap['blackwhite'] = PsxEffects.Color.blackwhite;
   effectmap['infrared'] = PsxEffects.Color.infrared;
   effectmap['bluetone'] = PsxEffects.Color.bluetone;
+  effectmap['greentone'] = PsxEffects.Color.greentone;
   effectmap['sepia'] = PsxEffects.Color.sepia;
   effectmap['solarize'] = PsxEffects.Color.solarize;
   effectmap['emboss'] = PsxEffects.Color.emboss;
@@ -219,7 +221,6 @@ performEffect=function(type){
   
   var effectFunc = effectmap[type];   
   effectFunc(imgData,imgData);
-
   ctx.putImageData(imgData,0,0);
 };
 </script>
