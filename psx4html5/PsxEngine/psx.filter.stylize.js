@@ -43,7 +43,7 @@ PSX.Filter.Stylize.emboss = function(src, _dst)
 {
     var dst = _dst;
     if(dst == src){
-        dst = PSX.Util.copyImageData(src);
+        dst = PSX.Util.cloneImageData(src);
     }
 	var nChannel = 4;
 	var widthStep = src.width * nChannel;
@@ -61,10 +61,22 @@ PSX.Filter.Stylize.emboss = function(src, _dst)
 			psrcDown +=4;
 			pdst +=4;
 		}
+		// TODO:boarder processing seems not work
+		//duplicate two boarder of each row
+		psrc = h * widthStep;
+		pdst = psrc +widthStep - 4;
+		for(var ch =0; ch < 3; ch++) {
+		    dst.data[pdst++ ] = dst.data[pdst -4 ];
+		    dst.data[psrc++ ] = dst.data[psrc + 4]; 
+		}
 	}
-	// TODO : boarder process
-	
+	var len = dst.data.length;
+	var pdown = len - widthStep;
+	for(var i =0 ; i < dst.width * 4; i++){
+	    dst.data[i] = dst.data[i + widthStep];
+	    dst.data[pdown ++] = dst.data[pdown - widthStep]; 
+	}
     if(dst != _dst){
-        _dst = PSX.Util.copyImageData(dst);
+        PSX.Util.copyArray(dst.data,_dst.data);
     }
 }
