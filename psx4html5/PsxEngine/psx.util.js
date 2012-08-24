@@ -61,7 +61,7 @@ PSX.Util.sqr = function (x)
 };
 PSX.Util.smoothstep = function(x,edge0,edge1)
 {
-    x = PSX.Util.clamp((x -edg0) / (edge1 - edge0),0.0,1.0);
+    x = PSX.Util.clamp((x -edge0) / (edge1 - edge0),0.0,1.0);
     return x * x * (3 - 2 * x);
 }
 

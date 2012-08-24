@@ -48,8 +48,8 @@ PsxEffects.Color.infrared = function(src,dst)
 		colormap[0][i]=i<<1;
 		colormap[1][i]=0;
 		colormap[2][i]=255-colormap[0][i];
-		colormap[0][i+128]=colormap[1][i];
-		colormap[1][i+128]=colormap[2][i];
+		colormap[0][i+128]=colormap[2][i];
+		colormap[1][i+128]=colormap[0][i];
 		colormap[2][i+128]=0;
 	}
 	PSX.Image.Adjustment.mapping(src,dst,colormap);
