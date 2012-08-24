@@ -54,11 +54,14 @@ PsxEffects.Color.infrared = function(src,dst)
 	}
 	PSX.Image.Adjustment.mapping(src,dst,colormap);
 };
-// sepia/brown color tone, 
-PsxEffects.Color.sepia = function(src, dst){
-    //TODO:color not right
-    var u = 73.686;
-    var v = 94.302;
+
+// parameters:color is the rgb whose tone you want to tune
+PsxEffects.Color.tonetuner =function(src,dst,color)
+{
+	var r = color[0];var g = color[1];var b = color[2];
+	var u = r * -0.168736 + g * -0.331264 + b *  0.500000 + 128;
+	var v = r *  0.500000 + g * -0.418688 + b * -0.081312 + 128;
+
 	PSX.Image.Mode.rgb2yuv(src,dst);
 	var len = src.data.length;
 	for(var i=0;i < len; i+=4) {
@@ -66,29 +69,19 @@ PsxEffects.Color.sepia = function(src, dst){
 		dst.data[i + 2] = u;
 	}
 	PSX.Image.Mode.yuv2rgb(dst,dst);
+}
+// sepia/brown color tone, 
+PsxEffects.Color.sepia = function(src, dst){
+	var color = [160,130,100];
+	PsxEffects.Color.tonetuner(src,dst,color);
 };
 // blue color tone
 PsxEffects.Color.bluetone = function(src, dst){
-    //TODO:color not right
-    var u = 73.686;
-    var v = 94.302;
-    PSX.Image.Mode.rgb2yuv(src,dst);
-    var len = src.data.length;
-    for(var i=0;i < len; i+=4) {
-        dst.data[i + 1] = u;
-        dst.data[i + 2] = v;
-    }
-    PSX.Image.Mode.yuv2rgb(dst,dst);
+	var color = [162,200,240];
+	PsxEffects.Color.tonetuner(src,dst,color);
 };
 // green color tone
 PsxEffects.Color.greentone = function(src, dst){
-    var u = 73.686;
-    var v = 94.302;
-	PSX.Image.Mode.rgb2yuv(src,dst);
-	var len = src.data.length;
-	for(var i=0;i < len; i+=4) {
-		dst.data[i + 1] = u;
-		dst.data[i + 2] = v;
-	}
-	PSX.Image.Mode.yuv2rgb(dst,dst);
+	var color = [162,229,188];
+	PsxEffects.Color.tonetuner(src,dst,color);
 };

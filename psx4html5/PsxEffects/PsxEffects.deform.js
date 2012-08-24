@@ -87,8 +87,12 @@ PsxEffects.Deform.mirror = function(src,dst,type)
 };
 
 // used by effects below
-PsxEffects.Deform.reshaper = function(src,dst,func)
+PsxEffects.Deform.reshaper = function(src,_dst,func)
 {
+    var dst = _dst;
+    if(dst == src){
+        dst = PSX.Util.cloneImageData(src);
+    }
     var radiusLength = function(coord) {
         return Math.sqrt(coord[0] * coord[0] + coord[1] * coord[1]);
     }
@@ -96,7 +100,7 @@ PsxEffects.Deform.reshaper = function(src,dst,func)
         var pdst = h * dst.width * 4;
         for(var w =0; w < dst.width; w++){
             // change coordinates to [-1,1]            
-            var normalCoord = [2.0 * w/src.width -1,2.0 * h/src.width -1];
+            var normalCoord = [2.0 * w/src.width -1,2.0 * h/src.height -1];
             var radius = radiusLength(normalCoord);
             var phase = Math.atan2(normalCoord[1],normalCoord[0]);
             var t = func(radius,phase);
@@ -131,6 +135,9 @@ PsxEffects.Deform.reshaper = function(src,dst,func)
                 dst.data[pdst++] = tc * ratioT + bc * ratioB;
             }
         }
+    }
+	if(dst != _dst){
+        PSX.Util.copyArray(dst.data,_dst.data);
     }
 }
 PsxEffects.Deform.fisheye = function(src,dst)
