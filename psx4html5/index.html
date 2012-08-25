@@ -159,8 +159,11 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     ColorShift
                     <ul>
-                        <li onclick="">c1</li>
-                        <li onclick="">c2</li>
+                        <li onclick="performEffect('color1')">c1</li>
+                        <li onclick="performEffect('color2')">c2</li>
+                        <li onclick="performEffect('color3')">c3</li>
+                        <li onclick="performEffect('color4')">c4</li>
+                        <li onclick="performEffect('color5')">c5</li>
                     </ul>
                 </li>
                 <li>
@@ -195,6 +198,13 @@ performEffect=function(type){
   effectmap['sepia'] = PsxEffects.Color.sepia;
   effectmap['solarize'] = PsxEffects.Color.solarize;
   effectmap['emboss'] = PsxEffects.Color.emboss;
+  // colorshift
+  effectmap['color1'] = PsxEffects.ColorShift.color1;
+  effectmap['color2'] = PsxEffects.ColorShift.color2;
+  effectmap['color3'] = PsxEffects.ColorShift.color3;
+  effectmap['color4'] = PsxEffects.ColorShift.color4;
+  effectmap['color5'] = PsxEffects.ColorShift.color5;
+  //effectmap['color1'] = PSX.Image.Mode.rgb2hsv;
   //deform
   var bottom2topFunc = function(src,dst){
     PsxEffects.Deform.mirror(src,dst,'bottom2top');
@@ -226,8 +236,10 @@ performEffect=function(type){
 </script>
 
             <footer>
+                <h1>Powered by Open Source Image Processing Library: <a title="psx" href="https://github.com/zhijie/psx">PSX</a></h1>
+                <br/>
                 <p>
-                    &copy; Copyright  by onezeros
+                    &copy; Copyright  by Zhijie Lee
                 </p>
             </footer>
         </div>
