@@ -136,7 +136,7 @@ _blendAlpha = function(F,B, O)
 };
 
 _blending = function(background, forground, dst, func) {
-    var len = src.width*src.height*4;
+    var len = dst.width*dst.height*4;
     for(var i =0; i < len; i+= 4) {
         for(var ch =0; ch < 3; ch++) {
             dst.data[i + ch] = func(forground.data[i + ch],background.data[i+ch]);

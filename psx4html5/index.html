@@ -108,7 +108,7 @@ li:hover ul, li.over ul { display: block; } /* The magic */
 
     </head>
 
-    <body>
+    <body onLoad="javascript:PsxEffects.initialize()">
         <div>
             <header>
                 <h1>psx </h1>
@@ -131,8 +131,16 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                 <li>
                     Instagram
                     <ul>
-                        <li onclick="">i1</li>
-                        <li onclick="">i2</li>
+                        <li onclick="performEffect('instagram1')">i1</li>
+                        <li onclick="performEffect('instagram2')">i2</li>
+                        <li onclick="performEffect('instagram3')">i3</li>
+                        <li onclick="performEffect('instagram4')">i4</li>
+                        <li onclick="performEffect('instagram5')">i5</li>
+                        <li onclick="performEffect('instagram6')">i6</li>
+                        <li onclick="performEffect('instagram7')">i7</li>
+                        <li onclick="performEffect('instagram8')">i8</li>
+                        <li onclick="performEffect('instagram9')">i9</li>
+                        <li onclick="performEffect('instagram10')">i10</li>
                     </ul>
                 </li>
                 <li>
@@ -204,6 +212,17 @@ performEffect=function(type){
   effectmap['color3'] = PsxEffects.ColorShift.color3;
   effectmap['color4'] = PsxEffects.ColorShift.color4;
   effectmap['color5'] = PsxEffects.ColorShift.color5;
+  // instagram group
+  effectmap['instagram1'] = PsxEffects.Instagram.instagram1;
+  effectmap['instagram2'] = PsxEffects.Instagram.instagram2;
+  effectmap['instagram3'] = PsxEffects.Instagram.instagram3;
+  effectmap['instagram4'] = PsxEffects.Instagram.instagram4;
+  effectmap['instagram5'] = PsxEffects.Instagram.instagram5;
+  effectmap['instagram6'] = PsxEffects.Instagram.instagram6;
+  effectmap['instagram7'] = PsxEffects.Instagram.instagram7;
+  effectmap['instagram8'] = PsxEffects.Instagram.instagram8;
+  effectmap['instagram9'] = PsxEffects.Instagram.instagram9;
+  effectmap['instagram10'] = PsxEffects.Instagram.instagram10;
   //effectmap['color1'] = PSX.Image.Mode.rgb2hsv;
   //deform
   var bottom2topFunc = function(src,dst){

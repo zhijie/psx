@@ -26,4 +26,9 @@
 
 PsxEffects = {};
 
-
+PsxEffects.initialize = function(){
+	// preload image resources
+	// load vignette
+	var vignette = new Image();
+	vignette.src = "./resource/vignette.png";
+}

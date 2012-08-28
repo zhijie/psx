@@ -67,14 +67,29 @@ PSX.Util.smoothstep = function(x,edge0,edge1)
 
 PSX.Util.cloneImageData = function(imageData) 
 {
-	  var canvas, context;
-	  canvas = document.createElement('canvas');
-	  canvas.width = imageData.width;
-	  canvas.height = imageData.height;
-	  context = canvas.getContext('2d');
-	  context.putImageData(imageData, 0, 0);
-	  return context.getImageData(0, 0, imageData.width, imageData.height);
+	var canvas, context;
+	canvas = document.createElement('canvas');
+	canvas.width = imageData.width;
+	canvas.height = imageData.height;
+	context = canvas.getContext('2d');
+	context.putImageData(imageData, 0, 0);
+	return context.getImageData(0, 0, imageData.width, imageData.height);
 };
+
+// Image object to ImageData
+// PSX.Util.image2ImageData = function(image,width,height) 
+// {
+	// width = typeof(width) == 'undefined' ? image.width:width;
+	// height = typeof(height) == 'undefined' ? image.height:height;
+	
+	// var canvas, context;
+	// canvas = document.createElement('canvas');
+	// canvas.width = width;
+	// canvas.height = height;
+	// context = canvas.getContext('2d');
+	// canvas.drawImage(image, 0, 0, width, height);
+	// return context.getImageData(0, 0, width, height);
+// };
 
 PSX.Util.createImageData = function(width,height) 
 {

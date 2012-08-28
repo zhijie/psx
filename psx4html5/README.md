@@ -1,4 +1,4 @@
-psx-image-library for html5
+psx-image-processing-library for html5/javascript
 =================
 
 The demo site for this library:
