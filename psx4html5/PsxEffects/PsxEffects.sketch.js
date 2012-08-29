@@ -21,3 +21,13 @@
  *
  */
 
+PsxEffects.Sketch = {};
+
+PsxEffects.Sketch.sketch1 = function(src,dst)
+{
+    PSX.Image.Adjustment.desaturate(src,dst);
+    var vigdata = PSX.Util.getImageDataById("sketch_classic");
+    var scaled = PSX.Util.cloneImageData(src);
+    PSX.Util.resize(vigdata,scaled);
+    PSX.Layer.blendScreen(dst,scaled,dst);
+} 

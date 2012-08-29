@@ -303,3 +303,16 @@ PSX.Layer.blendSaturation = function(background, foreground, dst)
 {
     // TODO:
 };
+
+
+PSX.Layer.test = function(src,dst,method)
+{
+    var vigdata = PSX.Util.getImageDataById("vignette");
+    var scaled = PSX.Util.cloneImageData(src);
+    PSX.Util.resize(vigdata,scaled);
+    switch (method) {
+        case 'blendOverlay':
+            PSX.Layer.blendOverlay(dst,scaled,dst);
+            break;
+    }
+}
