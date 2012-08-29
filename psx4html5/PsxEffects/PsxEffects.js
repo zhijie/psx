@@ -26,9 +26,15 @@
 
 PsxEffects = {};
 
+// preload image resources
 PsxEffects.initialize = function(){
-	// preload image resources
-	// load vignette
-	var vignette = new Image();
-	vignette.src = "./resource/vignette.png";
+    // put all filenames here
+    var RESOURCE_FILES = ['vignette.jpg'];
+    
+    var RESOURCE_PATH = './PsxEffects/resource/';
+    for(var i=0,j=RESOURCE_FILES.length; i<j; i++){
+        // file name without extension as id
+        var id = RESOURCE_FILES[i].substr(0,RESOURCE_FILES[i].length-4);
+    	document.write('<img id="'+id+'" src="'+RESOURCE_PATH+RESOURCE_FILES[i]+'" width="512" height ="512" style="display:none" />');//style="display:none" 
+    };
 }

@@ -16,7 +16,6 @@
 
         <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
 <script language="Javascript" src="PsxEngine/psx.js"></script>
 <script language="Javascript" src="PsxEngine/psx.util.js"></script>
@@ -108,7 +107,11 @@ li:hover ul, li.over ul { display: block; } /* The magic */
 
     </head>
 
-    <body onLoad="javascript:PsxEffects.initialize()">
+    <body >
+        <script type="text/javascript">
+            PsxEffects.initialize();
+        </script>
+
         <div>
             <header>
                 <h1>psx </h1>
@@ -182,13 +185,12 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                     </ul>
                 </li>
             </ul>
-
 <canvas id="myCanvas" width="600" height="337" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <img id="scream" src="jelleyfish.jpg" alt="The Scream" width="600" height="337" />
-
-
+  
 <script type="text/javascript">
+
 performEffect=function(type){
   var c=document.getElementById("myCanvas");
   var ctx=c.getContext("2d");
@@ -223,7 +225,6 @@ performEffect=function(type){
   effectmap['instagram8'] = PsxEffects.Instagram.instagram8;
   effectmap['instagram9'] = PsxEffects.Instagram.instagram9;
   effectmap['instagram10'] = PsxEffects.Instagram.instagram10;
-  //effectmap['color1'] = PSX.Image.Mode.rgb2hsv;
   //deform
   var bottom2topFunc = function(src,dst){
     PsxEffects.Deform.mirror(src,dst,'bottom2top');
@@ -257,6 +258,7 @@ performEffect=function(type){
             <footer>
                 <h1>Powered by Open Source Image Processing Library: <a title="psx" href="https://github.com/zhijie/psx">PSX</a></h1>
                 <br/>
+                <p>Designed by <a href="http://goapple.me/">goapple</a></p>
                 <p>
                     &copy; Copyright  by Zhijie Lee
                 </p>

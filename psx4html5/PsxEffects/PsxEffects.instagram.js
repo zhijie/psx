@@ -27,13 +27,10 @@ PsxEffects.Instagram.instagram = function(src,dst,map)
 	PSX.Image.Adjustment.mapping(src,dst,map);
 	
 	// load vignette
-	// var vignette = new Image();
-	// vignette.src = "./resource/vignette.png";
-	
-	// vignette.onload = function(){
-		// var vigdata = PSX.Util.image2ImageData(vignette,src.width,src.height);
-		// PSX.Layer.blendOverlay(dst,vigdata,dst);
-	// };
+	var vigdata = PSX.Util.getImageDataById("vignette");
+	var scaled = PSX.Util.cloneImageData(src);
+	PSX.Util.resize(vigdata,scaled);
+    //PSX.Layer.blendOverlay(dst,scaled,dst);
 }
 
 PsxEffects.Instagram.instagram10 = function(src, dst)

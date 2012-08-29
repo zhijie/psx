@@ -91,15 +91,35 @@ PSX.Util.cloneImageData = function(imageData)
 	// return context.getImageData(0, 0, width, height);
 // };
 
-PSX.Util.createImageData = function(width,height) 
+// get imagedata by image id. width,height is the target size
+PSX.Util.getImageDataById = function(imgid)
 {
-	var canvas, context;
-	canvas = document.createElement('canvas');
-	canvas.width = width;
-	canvas.height = height;
-	context = canvas.getContext('2d');
-	return context.getImageData(0, 0, width, height);
-};
+    var img=document.getElementById(imgid);
+    // get width and height from html below:
+    //  <img id="vignette" src="xxx/vignette.png"display="none" width="512" height="512" />
+    //width = typeof(width)=='undefined'?img.width:width;
+    //height = typeof(height)=='undefined'?img.height:height;
+    var width = img.width;
+    var height = img.height;
+    var canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    var context=canvas.getContext("2d");
+    
+    context.drawImage(img,0,0);
+    var imgData=context.getImageData(0,0,width,height);
+    return imgData;
+}
+
+// PSX.Util.createImageData = function(width,height) 
+// {
+	// var canvas, context;
+	// canvas = document.createElement('canvas');
+	// canvas.width = width;
+	// canvas.height = height;
+	// context = canvas.getContext('2d');
+	// return context.getImageData(0, 0, width, height);
+// };
 
 // run convolution on ImageData
 PSX.Util.convolution = function(src,_dst,kernel)
