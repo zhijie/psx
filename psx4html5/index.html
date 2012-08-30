@@ -166,7 +166,6 @@ li:hover ul, li.over ul { display: block; } /* The magic */
                         <li onclick="performEffect('fisheye')">fisheye</li>
                         <li onclick="performEffect('shrink')">shrink</li>
                         <li onclick="performEffect('swirl')">swirl</li>
-                        <li onclick="performEffect('wave')">wave</li>                        
                         <li onclick="performEffect('mosaic')">mosaic</li>
                         <li onclick="performEffect('mirrorright2left')">mirrorright2left</li>
                         <li onclick="performEffect('mirrorleft2right')">mirrorleft2right</li>
@@ -250,14 +249,14 @@ performEffect=function(type){
   effectmap['fisheye'] = PsxEffects.Deform.fisheye;
   effectmap['shrink'] = PsxEffects.Deform.shrink;
   effectmap['swirl'] = PsxEffects.Deform.swirl;
-  effectmap['wave'] = PsxEffects.Deform.wave;
   effectmap['mosaic'] = PsxEffects.Deform.mosaic;
   
   //Layer Blend test
-  effectmap['blendOverlay'] = function(src,dst){
+/*  effectmap['blendOverlay'] = function(src,dst){
       PSX.Layer.test(src,dst,'blendOverlay');
   };
-  
+  */
+ 
   var effectFunc = effectmap[type];   
   effectFunc(imgData,imgData);
   ctx.putImageData(imgData,0,0);
