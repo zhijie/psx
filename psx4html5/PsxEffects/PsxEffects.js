@@ -39,7 +39,11 @@ PsxEffects.initialize = function(){
     // put all filenames here
     var RESOURCES = [
         ResourceInfo('vignette.jpg',512,512),
-        ResourceInfo('sketch_classic.jpg',968,1296)
+        ResourceInfo('sketch_classic.jpg',968,1296),
+        ResourceInfo('canvas_text.png',600,337),
+        ResourceInfo('steve_jobs.jpg',600,337),
+        ResourceInfo('border1.png',600,337)
+
     ];
     
     var RESOURCE_PATH = './PsxEffects/resource/';
