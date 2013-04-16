@@ -39,6 +39,7 @@
 <script language="Javascript" src="PsxEffects/PsxEffects.instagram.js"></script>
 <script language="Javascript" src="PsxEffects/PsxEffects.sketch.js"></script>
 <script language="Javascript" src="PsxEffects/PsxEffects.convolution.js"></script>
+<script language="Javascript" src="PsxEffects/PsxEffects.overlay.js"></script>
         <script>
         
 startList = function() 
@@ -197,6 +198,15 @@ li:hover ul, li.over ul { display: block; } /* The magic */
 						<li onclick="performEffect('blur')">Blur</li>
 					</ul>
 				</li>
+                <li>
+                    Overlay
+                    <ul>
+                        <li onclick="performEffect('textoverlay')">TextOverlay</li>
+                        <li onclick="performEffect('imageoverlay')">ImageOverlay</li>
+                        <li onclick="performEffect('border1')">Border1</li>
+                        <li onclick="performEffect('border2')">Border2</li>
+                    </ul>
+                </li>
 				<li>
                     Funny
                     <ul>
@@ -270,6 +280,12 @@ performEffect=function(type){
   effectmap['unsharp']= PsxEffects.Convolution.unsharp;
   effectmap['emboss']= PsxEffects.Convolution.emboss;
   effectmap['blur']= PsxEffects.Convolution.blur;
+
+    //Overlay
+    effectmap['textoverlay']=PsxEffects.Overlay.textoverlay;
+    effectmap['imageoverlay']=PsxEffects.Overlay.imageoverlay;
+    effectmap['border1']=PsxEffects.Overlay.border1;
+    effectmap['border2']=PsxEffects.Overlay.border2;
   
   //Layer Blend test
 /*  effectmap['blendOverlay'] = function(src,dst){
